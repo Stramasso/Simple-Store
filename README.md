@@ -53,7 +53,7 @@ cd Simple-Store
 3. **Configure o banco de dados em `src/main/resources/application.properties`.**
 
 4. **Rode a aplicação com o Spring Boot:**
-mvn spring-boot:run
+.\mvnw.cmd spring-boot:run
 
 5. **Acesse [http://localhost:8080/login](http://localhost:8080/login) no navegador.**
 
