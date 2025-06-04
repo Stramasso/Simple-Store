@@ -1,0 +1,25 @@
+<h1>Categorias</h1>
+<link rel="stylesheet" th:href="@{/css/style.css}" href="/css/style.css" />
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="categoria : ${categorias}">
+            <td th:text="${categoria.id}"></td>
+            <td th:text="${categoria.nome}"></td>
+        </tr>
+    </tbody>
+</table>
+<a th:href="@{/home}">Voltar ao Dashboard</a>
+
+<td>
+    <a th:href="@{'/categorias/editar/' + ${categoria.id}}">Editar</a>
+    <a th:href="@{'/categorias/excluir/' + ${categoria.id}}">Excluir</a>
+</td>
+
+
+<p th:text="${algumAtributo}">Texto padrão</p>

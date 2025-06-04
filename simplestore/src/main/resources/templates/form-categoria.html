@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Novo Produto</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+    <h1>Novo Produto</h1>
+    <form th:action="@{/produtos}" th:object="${produto}" method="post">
+        <div>
+            <label>Nome:</label>
+            <input type="text" th:field="*{nome}" required>
+        </div>
+        <div>
+            <label>Descrição:</label>
+            <textarea th:field="*{descricao}" rows="3" cols="40"></textarea>
+        </div>
+        <div>
+            <label>Preço:</label>
+            <input type="number" th:field="*{preco}" step="0.01" min="0" required>
+        </div>
+        <div>
+            <label>Estoque:</label>
+            <input type="number" th:field="*{estoque}" min="0" required>
+        </div>
+        <div>
+            <label>Categoria:</label>
+            <select th:field="*{categoria.id}">
+                <option value="">-- Selecione --</option>
+                <option th:each="categoria : ${categorias}"
+                        th:value="${categoria.id}"
+                        th:text="${categoria.nome}"></option>
+            </select>
+        </div>
+        <button type="submit">Salvar</button>
+    </form>
+    <a th:href="@{/produtos}">Voltar</a>
+</body>
+</html>
+<script th:inline="javascript">
+    // Exemplo de script inline, se necessário
+    console.log("Formulário de Produto carregado.");    
+</script>
