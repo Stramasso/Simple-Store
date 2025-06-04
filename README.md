@@ -1,5 +1,3 @@
-echo "# Simple Store
-
 Este é um projeto Spring Boot para uma loja simples.
 
 ## Como rodar
@@ -25,8 +23,3 @@ Acesse [http://localhost:8080](http://localhost:8080)
 2. Crie uma branch (`git checkout -b feature/nome`)
 3. Faça commit das suas alterações
 4. Abra um Pull Request
-
-## Licença
-
-MIT
-" > README.md
