@@ -1,88 +1,72 @@
-# SimpleStore - Loja Virtual de Perfumes
+# Simple Store
 
-Uma aplicação web desenvolvida com Spring Boot para gerenciamento e venda de perfumes online.
+Loja virtual de perfumes feita com Spring Boot, desenvolvida na disciplina de Programação Web da Universidade São Judas Tadeu (2025).
 
----
+![Java](https://img.shields.io/badge/Java_17-ED8B00?style=flat-square&logo=openjdk&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot_3.5-6DB33F?style=flat-square&logo=springboot&logoColor=white)
+![Spring Security](https://img.shields.io/badge/Spring_Security-6DB33F?style=flat-square&logo=springsecurity&logoColor=white)
+![SQL Server](https://img.shields.io/badge/SQL_Server-CC2927?style=flat-square&logo=microsoftsqlserver&logoColor=white)
+![Thymeleaf](https://img.shields.io/badge/Thymeleaf-005F0F?style=flat-square&logo=thymeleaf&logoColor=white)
 
-## 🚀 Funcionalidades
+## O que o sistema faz
 
-- **Autenticação de usuários** (login com senha criptografada via Spring Security)
-- **Dashboard** com informações resumidas do sistema (futuro)
-- **Cadastro, edição, listagem e exclusão de perfumes** (futuro)
-- **Registro de pedidos e visualização de histórico** (futuro)
-- **Controle de estoque** (futuro)
-- **Acesso diferenciado por tipo de usuário** (cliente/admin – futuro)
-- **Cadastro de usuários** via formulário web e API REST
-- **Login e logout** com redirecionamento seguro
-- **Páginas de login e cadastro** responsivas e intuitivas
-- **Integração com banco de dados** (SQL Server)
+- **Autenticação** com Spring Security: login por formulário, senhas com BCrypt e logout com redirecionamento
+- **Cadastro de usuários** pela tela `/cadastro` ou pela API REST (`POST /api/usuarios`)
+- **Produtos**: listagem, cadastro, edição e exclusão, com preço, estoque e categoria
+- **Categorias**: listagem e cadastro
+- **Pedidos**: serviço que transforma o carrinho em pedido e lista os pedidos do usuário logado (as telas de pedido ainda estão em construção)
+- **Seed inicial**: um usuário administrador é criado na primeira execução
 
----
+## Arquitetura
 
-## 🛠️ Tecnologias Utilizadas
+O projeto segue a divisão em camadas do Spring:
 
-- **Java 17**
-- **Spring Boot**
-- **Spring Data JPA**
-- **Spring Security**
-- **Banco de Dados SQL Server** (ou MySQL/H2 para testes locais)
-- **Maven**
-- **HTML, CSS e Thymeleaf** (frontend)
-- **Git e GitHub** (controle de versão)
-- **Lombok** (opcional, para facilitar a criação de modelos)
+```
+simplestore/src/main/java/com/simplestore
+├── controllers/    rotas web (Thymeleaf) e REST
+├── services/       regras de negócio
+├── repositories/   acesso a dados com Spring Data JPA
+├── models/         entidades: Usuario, Role, Produto, Categoria, Pedido, ItemPedido
+└── config/         segurança e carga inicial do banco
+```
 
-## 🗄️ Banco de Dados
+## Como rodar
 
-**Entidades principais:**
-- **Usuario** (nome, email, senha criptografada)
-- **Produto** (futuro)
-- **Pedido** (futuro)
-- **ItemPedido** (futuro)
+Pré-requisitos: JDK 17 e um SQL Server acessível (local ou em container).
 
----
+1. Clone o repositório e entre na pasta do projeto:
 
-## 📦 Como rodar o projeto
+   ```bash
+   git clone https://github.com/Stramasso/Simple-Store.git
+   cd Simple-Store/simplestore
+   ```
 
-1. **Clone o repositório:**
-git clone https://github.com/Stramasso/Simple-Store.git
+2. Crie o banco `simplestore` e defina as credenciais como variáveis de ambiente:
 
-2. **Acesse o diretório do projeto:**
-cd Simple-Store
+   ```bash
+   # Linux/macOS
+   export DB_USER=simplestore
+   export DB_PASSWORD=sua_senha
 
+   # Windows (PowerShell)
+   $env:DB_USER="simplestore"
+   $env:DB_PASSWORD="sua_senha"
+   ```
 
-3. **Configure o banco de dados em `src/main/resources/application.properties`.**
+   Se o banco não estiver em `localhost:1433`, defina também `DB_URL` com a URL JDBC completa.
 
-4. **Rode a aplicação com o Spring Boot:**
-.\mvnw.cmd spring-boot:run
+3. Suba a aplicação:
 
-5. **Acesse [http://localhost:8080/login](http://localhost:8080/login) no navegador.**
+   ```bash
+   ./mvnw spring-boot:run      # Linux/macOS
+   .\mvnw.cmd spring-boot:run  # Windows
+   ```
 
----
+4. Acesse http://localhost:8080/login.
 
-## 📚 Fluxo do Sistema
+## Próximos passos
 
-1. **Cadastre um usuário em `/cadastro` ou via API REST (`POST /api/usuarios`).**
-2. **Faça login em `/login`.**
-3. **Após o login, você será redirecionado para `/home` (futuro: dashboard).**
-
----
-
-## 📌 Dicas e Observações
-
-- **Todos os usuários devem ser cadastrados pelo sistema ou API para garantir senha criptografada.**
-- **Nunca insira usuários manualmente no banco com senha em texto puro.**
-- **O projeto segue boas práticas de desenvolvimento web e Java Spring, com foco em segurança e usabilidade[2].**
-
----
-
-## 🤝 Como Contribuir
-
-1. **Faça um fork do projeto.**
-2. **Crie uma branch (`git checkout -b feature/nome`).**
-3. **Faça commit das suas alterações.**
-4. **Abra um Pull Request.**
-
----
-
-Desenvolvido para fins acadêmicos na disciplina de Programação Web[1].
-
+- Telas de "meus pedidos" e detalhes do pedido
+- Perfis com permissões diferentes para cliente e administrador
+- Autenticação por token (JWT) para a API REST
+- Testes de integração dos serviços
